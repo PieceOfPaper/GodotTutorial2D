@@ -45,8 +45,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yomym"]
-radius = 46.0
-height = 110.0
+radius = 34.0
+height = 84.0
 
 [node name="Mob" type="RigidBody2D" groups=["mobs"]]
 collision_mask = 0
@@ -54,10 +54,10 @@ gravity_scale = 2.66454e-15
 script = ExtResource("1_tg6j0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_gwe77")
 animation = &"fly"
 frame_progress = 0.995924
-speed_scale = 0.75
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
