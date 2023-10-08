@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgsvq7kfvhsvv"]
+[gd_scene load_steps=8 format=3 uid="uid://dgsvq7kfvhsvv"]
 
 [ext_resource type="PackedScene" uid="uid://yotmtgif0a5e" path="res://player.tscn" id="1_2e17i"]
 [ext_resource type="Script" path="res://Main.cs" id="1_v3jji"]
 [ext_resource type="PackedScene" uid="uid://dxu2rg0uxdber" path="res://mob.tscn" id="2_2prki"]
 [ext_resource type="PackedScene" uid="uid://c3ks0la85pyvm" path="res://hud.tscn" id="3_uxbb3"]
+[ext_resource type="AudioStream" uid="uid://bc36gphcbtir6" path="res://art/House In a Forest Loop.ogg" id="5_lhxkx"]
+[ext_resource type="AudioStream" uid="uid://boxmcmo1rhv0x" path="res://art/gameover.wav" id="6_hn8fi"]
 
 [sub_resource type="Curve2D" id="Curve2D_cracx"]
 _data = {
@@ -14,8 +16,6 @@ point_count = 5
 [node name="Main" type="Node"]
 script = ExtResource("1_v3jji")
 MobScene = ExtResource("2_2prki")
-
-[node name="Player" parent="." instance=ExtResource("1_2e17i")]
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -37,8 +37,24 @@ position = Vector2(3, 2)
 
 [node name="HUD" parent="." instance=ExtResource("3_uxbb3")]
 
-[connection signal="Hit" from="Player" to="." method="game_over"]
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.764706, 0.631373, 1, 1)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_lhxkx")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_hn8fi")
+
+[node name="Player" parent="." instance=ExtResource("1_2e17i")]
+
 [connection signal="timeout" from="MobTimer" to="." method="OnMobTimerTimeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
 [connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
 [connection signal="StartGame" from="HUD" to="." method="NewGame"]
+[connection signal="Hit" from="Player" to="." method="GameOver"]

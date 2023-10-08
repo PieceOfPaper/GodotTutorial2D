@@ -76,7 +76,7 @@ public partial class Player : Area2D
 			Mathf.Clamp(Position.Y, 0, ScreenSize.Y));
 	}
 
-	private void OnBodyEntered(PhysicsBody2D body)
+	public void OnBodyEntered(Node2D body)
 	{
 		Hide(); // Player disappears after being hit.
 		EmitSignal(SignalName.Hit);
