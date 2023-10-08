@@ -1,12 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgsvq7kfvhsvv"]
+[gd_scene load_steps=6 format=3 uid="uid://dgsvq7kfvhsvv"]
 
 [ext_resource type="PackedScene" uid="uid://yotmtgif0a5e" path="res://player.tscn" id="1_2e17i"]
 [ext_resource type="Script" path="res://Main.cs" id="1_v3jji"]
 [ext_resource type="PackedScene" uid="uid://dxu2rg0uxdber" path="res://mob.tscn" id="2_2prki"]
+[ext_resource type="PackedScene" uid="uid://c3ks0la85pyvm" path="res://hud.tscn" id="3_uxbb3"]
 
 [sub_resource type="Curve2D" id="Curve2D_cracx"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 19, 18, 0, 0, 0, 0, 14, 706, 0, 0, 0, 0, 463, 708, 0, 0, 0, 0, 467, 18, 0, 0, 0, 0, 19, 18)
+"points": PackedVector2Array(0, 0, 0, 0, 3, 2, 0, 0, 0, 0, 481, 2, 0, 0, 0, 0, 481, 723, 0, 0, 0, 0, 2, 723, 0, 0, 0, 0, 3, 2)
 }
 point_count = 5
 
@@ -32,7 +33,12 @@ position = Vector2(240, 450)
 curve = SubResource("Curve2D_cracx")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
-position = Vector2(19, 18)
-rotation = 1.57806
+position = Vector2(3, 2)
+
+[node name="HUD" parent="." instance=ExtResource("3_uxbb3")]
 
 [connection signal="Hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="OnMobTimerTimeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="OnScoreTimerTimeout"]
+[connection signal="timeout" from="StartTimer" to="." method="OnStartTimerTimeout"]
+[connection signal="StartGame" from="HUD" to="." method="NewGame"]
